@@ -595,46 +595,119 @@ button:active, a:active {
   transform: translate(-50%, -50%) scale(0.92) !important;
 }
 
-.face-id-icons-wrapper {
-  position: relative;
-  width: 84px;
-  height: 84px;
+/* Face ID Wrapper (centering and spacing) */
+.face-id-wrapper {
+  width: 80px;
+  height: 80px;
   margin-bottom: 12px;
-}
-
-.face-id-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 84px;
-  height: 84px;
-  color: #FFFFFF;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
 }
 
-.face-id-scan-svg {
+.face-id-wrapper svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.face-id-default {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  transition: opacity 1s ease, transform 0.8s ease;
 }
 
-.face-id-success-svg {
+.face-id-wrapper.active .face-id-default {
   opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  transform: scale(1.2);
 }
 
-.face-id-overlay-box.success-active .face-id-scan-svg {
+/* 3D Scanning Circles */
+.circle {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  background: transparent;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.face-id-wrapper.active .circle {
+  opacity: 1;
+  transition: opacity .4s, transform 1.5s;
+}
+
+.circle.green {
+  border: 3px solid #88ef88;
+}
+
+.circle.blue {
+  border: 3px solid #0aaaf7;
+}
+
+.circle.purple {
+  border: 3px solid #ea54ea;
+}
+
+.face-id-wrapper.active .circle.green {
+  transform: rotateX(360deg);
+}
+
+.face-id-wrapper.active .circle.blue {
+  transform: rotateY(360deg);
+}
+
+.face-id-wrapper.active .circle.purple {
+  transform: rotateY(360deg) rotateX(360deg);
+}
+
+/* When verification is complete, hide other circles and fade purple to white */
+.face-id-wrapper.completed .circle.green,
+.face-id-wrapper.completed .circle.blue {
   opacity: 0 !important;
-  transform: scale(0.8) !important;
+  transition: opacity 0.5s ease;
 }
 
-.face-id-overlay-box.success-active .face-id-success-svg {
-  opacity: 1 !important;
-  transform: scale(1) !important;
+.face-id-wrapper.completed .circle.purple {
+  border: 3px solid #FFFFFF;
+  transition: border .7s;
+}
+
+/* Success Checkmark Tick */
+.face-id-success-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.path-tick {
+  opacity: 0;
+}
+
+.face-id-wrapper.completed .path-tick {
+  stroke-dasharray: 49.497474670410156;
+  stroke-dashoffset: 0;
+  animation: dash 0.4s ease-out forwards;
+  stroke-opacity: 1;
+  opacity: 1;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 49.497474670410156;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 .face-id-text {
