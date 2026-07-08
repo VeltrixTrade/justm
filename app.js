@@ -22,12 +22,13 @@ const DEFAULT_SETTINGS = {
   actionsTop: 28,
   indicatorTop: 24,
   tabsTop: 24,
-  emptyStateTop: 0 // padding top offset
+  emptyStateTop: 0, // padding top offset
+  screenTop: 0 // screen vertical shift offset in px (negative is up, positive is down)
 };
 
 let appSettings = {};
 
-const CURRENT_VERSION = "3.3";
+const CURRENT_VERSION = "3.6";
 
 // Load settings from localStorage or fallback to defaults
 function loadAppSettings() {
@@ -109,6 +110,9 @@ function applyAppSettings() {
   if (emptyState) {
     emptyState.style.paddingTop = appSettings.emptyStateTop + 'px';
   }
+
+  // 7. Screen Vertical Shift offset
+  document.documentElement.style.setProperty('--screen-top', appSettings.screenTop + 'px');
 }
 
 class FaceUnlockOverlay {
@@ -646,6 +650,7 @@ function setupSettingsUI() {
     { id: 'set-indicator-top', valId: 'val-indicator-top', suffix: 'px', key: 'indicatorTop' },
     { id: 'set-tabs-top', valId: 'val-tabs-top', suffix: 'px', key: 'tabsTop' },
     { id: 'set-empty-top', valId: 'val-empty-top', suffix: 'px', key: 'emptyStateTop' },
+    { id: 'set-screen-top', valId: 'val-screen-top', suffix: 'px', key: 'screenTop' },
     { id: 'set-face-id-width', valId: 'val-face-id-width', suffix: 'px', key: 'faceIdWidth' },
     { id: 'set-face-id-height', valId: 'val-face-id-height', suffix: 'px', key: 'faceIdHeight' },
     { id: 'set-face-id-radius', valId: 'val-face-id-radius', suffix: 'px', key: 'faceIdRadius' },
@@ -701,6 +706,7 @@ function populateSettingsFormFields() {
     { id: 'set-indicator-top', valId: 'val-indicator-top', suffix: 'px', key: 'indicatorTop' },
     { id: 'set-tabs-top', valId: 'val-tabs-top', suffix: 'px', key: 'tabsTop' },
     { id: 'set-empty-top', valId: 'val-empty-top', suffix: 'px', key: 'emptyStateTop' },
+    { id: 'set-screen-top', valId: 'val-screen-top', suffix: 'px', key: 'screenTop' },
     { id: 'set-face-id-width', valId: 'val-face-id-width', suffix: 'px', key: 'faceIdWidth' },
     { id: 'set-face-id-height', valId: 'val-face-id-height', suffix: 'px', key: 'faceIdHeight' },
     { id: 'set-face-id-radius', valId: 'val-face-id-radius', suffix: 'px', key: 'faceIdRadius' },

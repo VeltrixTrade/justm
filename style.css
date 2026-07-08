@@ -58,6 +58,7 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transform: translateY(var(--screen-top, 0px)); /* Shifts the entire screen vertically */
 }
 
 /* Desktop Simulation Mode (Responsive Frame) */

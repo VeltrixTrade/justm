@@ -8,9 +8,11 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="JustMarkets">
+  <link rel="apple-touch-icon" href="لوغو.jpg">
+  <link rel="icon" type="image/jpeg" href="لوغو.jpg">
   <meta name="theme-color" content="#FFFFFF">
   <meta name="msapplication-navbutton-color" content="#FFFFFF">
-  <link rel="stylesheet" href="style.css?v=3.3">
+  <link rel="stylesheet" href="style.css?v=3.6">
 </head>
 <body>
 
@@ -294,6 +296,14 @@
             <span class="settings-range-val" id="val-empty-top">0px</span>
           </div>
         </div>
+        <!-- Screen Vertical Shift -->
+        <div class="settings-field">
+          <label>إزاحة الشاشة بالكامل للأعلى/الأسفل (Screen Vertical Shift)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-screen-top" min="-100" max="100" value="0">
+            <span class="settings-range-val" id="val-screen-top">0px</span>
+          </div>
+        </div>
       </div>
 
       <!-- Edit Face ID dimensions -->
@@ -449,6 +459,6 @@
 
   </div>
 
-  <script src="app.js?v=3.3"></script>
+  <script src="app.js?v=3.6"></script>
 </body>
 </html>
