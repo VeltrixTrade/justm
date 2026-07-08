@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>JustMarkets Mock - Face ID</title>
+  <!-- Apple Web App Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="JustMarkets">
+  <link rel="stylesheet" href="style.css?v=3.2">
+</head>
+<body>
+
+  <!-- App Wrapper representing the iPhone Frame on desktop / Full Screen on mobile -->
+  <div class="app-wrapper">
+    
+    <!-- Background Blur Layer for Face ID Scanning -->
+    <div id="screen-blur-layer" class="screen-blur-layer"></div>
+
+    <!-- MAIN SCREEN (JustMarkets dashboard in background) -->
+    <div id="main-screen" class="main-screen">
+      
+      <!-- Top Section Background (Top bar and الرصيد label) -->
+      <div class="top-section-bg">
+        <!-- iOS Status Bar Spacer -->
+        <div class="status-bar-spacer"></div>
+
+        <!-- Header Section (Click overlays) -->
+        <header class="main-header" id="main-header">
+          <!-- Right grid menu overlay -->
+          <button class="header-overlay-btn grid-menu-overlay" id="main-grid-btn" aria-label="Menu"></button>
+
+          <!-- Center (Account Dropdown Selector overlay) -->
+          <button class="header-overlay-btn account-selector-overlay" id="main-account-selector">
+          </button>
+
+          <!-- Left side (Bell & Clock in RTL are leftmost) -->
+          <div class="header-left-overlay-group">
+            <!-- Clock/History Button -->
+            <button class="header-overlay-btn clock-overlay" id="main-clock-btn" aria-label="History"></button>
+            <!-- Bell Button -->
+            <button class="header-overlay-btn bell-overlay" id="main-bell-btn" aria-label="Notifications"></button>
+          </div>
+        </header>
+      </div>
+
+      <!-- Middle Balance Section (HTML dynamic balance amount) -->
+      <div class="middle-balance-section">
+        <h1 class="balance-amount" id="balance-amount">$2.60</h1>
+      </div>
+
+      <!-- Bottom Section Background (Raw Spread | MT5, Action Buttons, Page dots, tabs, empty state) -->
+      <div class="bottom-section-bg">
+        
+        <!-- Circular Buttons Grid (Click overlays) -->
+        <section class="action-buttons-section">
+          <!-- Deposit Button (إيداع) -->
+          <button class="action-item-btn" id="action-btn-deposit"></button>
+          <!-- Withdraw Button (السحب) -->
+          <button class="action-item-btn" id="action-btn-withdraw"></button>
+          <!-- Details Button (التفاصيل) -->
+          <button class="action-item-btn" id="action-btn-details"></button>
+          <!-- More Button (أكثر) -->
+          <button class="action-item-btn" id="action-btn-more"></button>
+        </section>
+
+        <!-- Tabs Section (Click overlays) -->
+        <section class="positions-tabs-section">
+          <div class="tabs-header">
+            <button class="tab-btn active">افتح</button>
+            <button class="tab-btn">معلّق</button>
+            <button class="tab-btn">مغلق</button>
+          </div>
+        </section>
+
+        <!-- Empty State / Open Position Click overlay -->
+        <section class="empty-state-section">
+          <button class="btn-open-position" id="btn-open-position-main">فتح مركز</button>
+        </section>
+
+        <!-- Transparent Bottom Nav Click Overlays (maps to the baked-in bottom nav) -->
+        <div class="bottom-nav-overlay">
+          <button class="bottom-nav-overlay-btn" id="overlay-nav-btn-accounts" aria-label="الحسابات"></button>
+          <button class="bottom-nav-overlay-btn" id="overlay-nav-btn-markets" aria-label="الأسواق"></button>
+          <button class="bottom-nav-overlay-btn" id="overlay-nav-btn-trade" aria-label="تداول"></button>
+          <button class="bottom-nav-overlay-btn" id="overlay-nav-btn-ideas" aria-label="الرؤى"></button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TRADE CHART SCREEN (Displays trading terminal + M5/M15 timeframe selector) -->
+    <div id="trade-chart-screen" class="trade-chart-screen hidden">
+      <!-- iOS Status Bar Spacer -->
+      <div class="status-bar-spacer"></div>
+
+      <!-- Chart Header -->
+      <header class="chart-header">
+        <button class="chart-back-btn" id="chart-back-btn" aria-label="Back">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+        <div class="chart-symbol-info">
+          <h2 class="chart-symbol-name">EURUSD</h2>
+          <span class="chart-symbol-desc">Euro / US Dollar • Raw Spread</span>
+        </div>
+        <div style="width: 40px;"></div> <!-- Balancer spacer -->
+      </header>
+
+      <!-- Price Block -->
+      <section class="chart-price-section">
+        <div class="chart-price-row">
+          <span class="chart-live-price" id="chart-live-price">1.08456</span>
+          <span class="chart-price-change positive" id="chart-price-change">+0.12%</span>
+        </div>
+        <div class="chart-spread-info">Spread: 0.1 • Min: 1.08210 • Max: 1.08580</div>
+      </section>
+
+      <!-- Timeframe selector tabs -->
+      <section class="timeframe-selector">
+        <button class="tf-btn" data-frame="M1">M1</button>
+        <button class="tf-btn active" data-frame="M5">M5</button>
+        <button class="tf-btn" data-frame="M15">M15</button>
+        <button class="tf-btn" data-frame="H1">H1</button>
+        <button class="tf-btn" data-frame="D1">D1</button>
+      </section>
+
+      <!-- Canvas/SVG Live Chart -->
+      <div class="chart-container">
+        <svg class="trading-chart-svg" viewBox="0 0 400 200">
+          <defs>
+            <linearGradient id="chart-glow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3156FF" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#3156FF" stop-opacity="0.0"/>
+            </linearGradient>
+          </defs>
+          <!-- Grid lines -->
+          <line x1="0" y1="40" x2="400" y2="40" stroke="#F1F1F3" stroke-width="1" />
+          <line x1="0" y1="90" x2="400" y2="90" stroke="#F1F1F3" stroke-width="1" />
+          <line x1="0" y1="140" x2="400" y2="140" stroke="#F1F1F3" stroke-width="1" />
+          
+          <!-- Area gradient shape -->
+          <path id="chart-area-path" d="" fill="url(#chart-glow)"></path>
+          <!-- Chart stroke path -->
+          <path id="chart-line-path" d="" fill="none" stroke="#3156FF" stroke-width="3" stroke-linecap="round"></path>
+          
+          <!-- Tracker glow and dot -->
+          <circle id="chart-tracker-dot-glow" cx="0" cy="0" r="10" fill="#3156FF" opacity="0.3" />
+          <circle id="chart-tracker-dot" cx="0" cy="0" r="5" fill="#3156FF" />
+        </svg>
+      </div>
+
+      <!-- Quick Sell/Buy trading buttons -->
+      <section class="order-action-panel">
+        <button class="order-btn sell">
+          <span class="order-direction">SELL</span>
+          <span class="order-price" id="order-price-sell">1.08448</span>
+        </button>
+        <button class="order-btn buy">
+          <span class="order-direction">BUY</span>
+          <span class="order-price" id="order-price-buy">1.08456</span>
+        </button>
+      </section>
+    </div>
+
+    <!-- SETTINGS SCREEN (Opened when clicking ideas/الرؤى tab) -->
+    <div id="settings-screen" class="settings-screen hidden">
+      <div class="status-bar-spacer"></div>
+      
+      <header class="settings-header">
+        <h1 class="settings-title">إعدادات المظهر والخصائص</h1>
+      </header>
+
+      <!-- Edit texts -->
+      <div class="settings-group">
+        <h2 class="settings-group-title">تعديل النصوص</h2>
+        
+        <div class="settings-field">
+          <label for="set-account-number">رقم الحساب (أعلى الشاشة)</label>
+          <input type="text" id="set-account-number" value="1200034286">
+        </div>
+        
+        <div class="settings-field">
+          <label for="set-balance-amount">قيمة الرصيد</label>
+          <input type="text" id="set-balance-amount" value="$2.60">
+        </div>
+      </div>
+
+      <!-- Edit dimensions -->
+      <div class="settings-group">
+        <h2 class="settings-group-title">التحكم في أبعاد وموقع العناصر</h2>
+        
+        <!-- Balance Font Size -->
+        <div class="settings-field">
+          <label>حجم خط الرصيد (Balance Font Size)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-balance-font-size" min="20" max="64" value="38">
+            <span class="settings-range-val" id="val-balance-font-size">38px</span>
+          </div>
+        </div>
+
+        <!-- Balance Right Margin (X-axis) -->
+        <div class="settings-field">
+          <label>البعد عن اليمين (Balance Right Offset)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-balance-right" min="0" max="150" value="24">
+            <span class="settings-range-val" id="val-balance-right">24px</span>
+          </div>
+        </div>
+
+        <!-- Balance Top Margin (Y-axis) -->
+        <div class="settings-field">
+          <label>البعد عن الأعلى (Balance Top Offset)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-balance-top" min="-50" max="100" value="9">
+            <span class="settings-range-val" id="val-balance-top">9px</span>
+          </div>
+        </div>
+
+        <!-- Space between top & bottom section (Middle height) -->
+        <div class="settings-field">
+          <label>المسافة بين الرصيد و raw (Middle Spacing Height)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-balance-middle-height" min="10" max="150" value="47">
+            <span class="settings-range-val" id="val-balance-middle-height">47px</span>
+          </div>
+        </div>
+
+        <!-- Header Height -->
+        <div class="settings-field">
+          <label>ارتفاع ترويسة الحساب (Header Height)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-header-height" min="40" max="100" value="64">
+            <span class="settings-range-val" id="val-header-height">64px</span>
+          </div>
+        </div>
+
+        <!-- Header Margin Top -->
+        <div class="settings-field">
+          <label>المسافة العلوية للترويسة (Header Top Margin)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-header-top" min="0" max="40" value="10">
+            <span class="settings-range-val" id="val-header-top">10px</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons Size -->
+        <div class="settings-field">
+          <label>حجم الأزرار الدائرية (Action Buttons Width)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-actions-width" min="50" max="100" value="76">
+            <span class="settings-range-val" id="val-actions-width">76px</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons Margin Top -->
+        <div class="settings-field">
+          <label>المسافة العلوية للأزرار (Action Buttons Top Margin)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-actions-top" min="10" max="60" value="28">
+            <span class="settings-range-val" id="val-actions-top">28px</span>
+          </div>
+        </div>
+
+        <!-- Page Indicator Margin Top -->
+        <div class="settings-field">
+          <label>المسافة العلوية لمؤشر الصفحات (Page Dots Top Margin)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-indicator-top" min="10" max="60" value="24">
+            <span class="settings-range-val" id="val-indicator-top">24px</span>
+          </div>
+        </div>
+
+        <!-- Tabs Section Margin Top -->
+        <div class="settings-field">
+          <label>المسافة العلوية لتبويبات المراكز (Tabs Top Margin)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-tabs-top" min="10" max="60" value="24">
+            <span class="settings-range-val" id="val-tabs-top">24px</span>
+          </div>
+        </div>
+
+        <!-- Empty State Padding Top -->
+        <div class="settings-field">
+          <label>المسافة العلوية للمنطقة الفارغة (Empty State Offset)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-empty-top" min="0" max="100" value="0">
+            <span class="settings-range-val" id="val-empty-top">0px</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Face ID dimensions -->
+      <div class="settings-group">
+        <h2 class="settings-group-title">أبعاد وموقع مربع بصمة الوجه (Face ID)</h2>
+        
+        <!-- Face ID Box Width -->
+        <div class="settings-field">
+          <label>عرض مربع بصمة الوجه (Face ID Box Width)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-face-id-width" min="150" max="300" value="220">
+            <span class="settings-range-val" id="val-face-id-width">220px</span>
+          </div>
+        </div>
+
+        <!-- Face ID Box Height -->
+        <div class="settings-field">
+          <label>ارتفاع مربع بصمة الوجه (Face ID Box Height)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-face-id-height" min="150" max="300" value="220">
+            <span class="settings-range-val" id="val-face-id-height">220px</span>
+          </div>
+        </div>
+
+        <!-- Face ID Radius -->
+        <div class="settings-field">
+          <label>درجة انحناء زوايا المربع (Face ID Border Radius)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-face-id-radius" min="12" max="48" value="36">
+            <span class="settings-range-val" id="val-face-id-radius">36px</span>
+          </div>
+        </div>
+
+        <!-- Face ID Vertical Placement (Top %) -->
+        <div class="settings-field">
+          <label>موقع مربع بصمة الوجه (Face ID Vertical Position)</label>
+          <div class="settings-field-range">
+            <input type="range" id="set-face-id-top" min="20" max="80" value="50">
+            <span class="settings-range-val" id="val-face-id-top">50%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Panel -->
+      <div class="settings-actions">
+        <button class="settings-btn reset" id="settings-reset-btn">إعادة تعيين الافتراضي</button>
+        <button class="settings-btn save" id="settings-save-btn">حفظ الإعدادات</button>
+      </div>
+    </div>
+
+    <!-- Global App Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <!-- Accounts -->
+      <a href="#" class="nav-item active" id="nav-btn-accounts">
+        <img src="الحسابات.jpg" alt="الحسابات">
+      </a>
+      <!-- Markets -->
+      <a href="#" class="nav-item" id="nav-btn-markets">
+        <img src="الاسواق.jpg" alt="الأسواق">
+      </a>
+      <!-- Trade -->
+      <a href="#" class="nav-item" id="nav-btn-trade">
+        <img src="تداول.jpg" alt="تداول">
+      </a>
+      <!-- Ideas / Settings -->
+      <a href="#" class="nav-item" id="nav-btn-ideas">
+        <img src="الرؤى.jpg" alt="الرؤى">
+      </a>
+    </nav>
+
+    <!-- PIN SCREEN OVERLAY -->
+    <div id="pin-screen" class="pin-screen">
+      
+      <!-- Top Actions -->
+      <div class="pin-header">
+        <button class="pin-chat-btn" aria-label="Support">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Greeting & Prompt -->
+      <div class="pin-prompt-container">
+        <h1 class="pin-title">افتح باستخدام رمز PIN</h1>
+        <p class="pin-subtitle">أو استخدم البصمة لتسجيل الدخول</p>
+      </div>
+
+      <!-- PIN Indicator Dots -->
+      <div class="pin-dots-container">
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+      </div>
+
+      <!-- Keypad Grid (RTL aligned) -->
+      <div class="pin-keypad">
+        <button class="keypad-btn" data-value="1">1</button>
+        <button class="keypad-btn" data-value="2">2</button>
+        <button class="keypad-btn" data-value="3">3</button>
+        
+        <button class="keypad-btn" data-value="4">4</button>
+        <button class="keypad-btn" data-value="5">5</button>
+        <button class="keypad-btn" data-value="6">6</button>
+        
+        <button class="keypad-btn" data-value="7">7</button>
+        <button class="keypad-btn" data-value="8">8</button>
+        <button class="keypad-btn" data-value="9">9</button>
+        
+        <!-- Biometric Button (Face ID Icon) -->
+        <button class="keypad-btn bio-btn" id="keypad-bio-trigger" aria-label="Face ID">
+          <svg viewBox="0 0 100 100" width="36" height="36" fill="currentColor">
+            <!-- Outline brackets -->
+            <path d="M 25 35 V 25 H 35" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M 65 25 H 75 V 35" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M 25 65 V 75 H 35" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M 65 75 H 75 V 65" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <!-- Face profile curves -->
+            <path d="M 37 38 C 34 45 34 55 37 62" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M 63 38 C 66 45 66 55 63 62" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <!-- Eyes -->
+            <rect x="42" y="44" width="4" height="8" rx="2"/>
+            <rect x="54" y="44" width="4" height="8" rx="2"/>
+            <!-- Nose -->
+            <path d="M 50 42 V 54 H 46" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Smile -->
+            <path d="M 42 63 C 45 67 55 67 58 63" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </button>
+        
+        <button class="keypad-btn" data-value="0">0</button>
+        
+        <!-- Backspace Button -->
+        <button class="keypad-btn delete-btn" data-action="delete" aria-label="Delete">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+            <line x1="18" y1="9" x2="12" y2="15"></line>
+            <line x1="12" y1="9" x2="18" y2="15"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Footer Help Link -->
+      <div class="pin-footer">
+        <a href="#" class="pin-forgot-link">نسيت رقم PIN الخاص بك؟</a>
+      </div>
+
+    </div>
+
+    <!-- Toast feedback message container -->
+    <div id="toast-msg" class="toast-msg">تم حفظ الإعدادات بنجاح!</div>
+
+  </div>
+
+  <script src="app.js?v=3.2"></script>
+</body>
+</html>

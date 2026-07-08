@@ -1,0 +1,1019 @@
+/* ==========================================================================
+   JUSTMARKETS MOCK FACE ID - STYLING SHEET
+   ========================================================================== */
+
+/* 1. FONT DEFINITIONS & INITIAL SYSTEM SETUP */
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'), local('.SFNSDisplay-Regular'), local('SFNS Display');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display Semibold'), local('.SFNSDisplay-Semibold'), local('SFNS Display Semibold');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display Bold'), local('.SFNSDisplay-Bold'), local('SFNS Display Bold');
+  font-weight: 700;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background-color: #0f1015; /* Dark background to make the iPhone frame pop on desktop */
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   2. APP LAYOUT CONTAINER (Mobile-first viewport wrapper)
+   ========================================================================== */
+.app-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-color: #FFFFFF;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Desktop Simulation Mode (Responsive Frame) */
+@media screen and (min-width: 480px) {
+  .app-wrapper {
+    width: 393px; /* Standard iPhone 15 width */
+    height: 852px; /* Standard iPhone 15 height */
+    border-radius: 44px;
+    border: 11px solid #1C1C1E;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Base button active animations */
+button, a {
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  font-family: inherit;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+button:active, a:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================================
+   3. BACKGROUND MAIN SCREEN STYLING (JustMarkets Dashboard)
+   ========================================================================== */
+.main-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  position: relative;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+  padding: 0;
+  overflow: hidden;
+}
+
+.top-section-bg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1166 / 317;
+  background-image: url('العلوية.jpg');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.bottom-section-bg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1166 / 1945;
+  background-image: url('السفلية.jpg');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Spacers for iOS Safe Area */
+.status-bar-spacer {
+  height: 15px; /* Minimized to place header exactly near the top like the screenshot */
+  flex-shrink: 0;
+}
+
+/* Header Section using Image Slice background with HTML overlays */
+.main-header {
+  height: 42px;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  background: transparent;
+}
+
+.header-overlay-btn {
+  position: absolute;
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-menu-overlay {
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+}
+
+.account-selector-overlay {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 172px;
+  height: 38px;
+  border-radius: 19px;
+}
+
+.account-number-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #000000;
+  background-color: #EFEFF1; /* Covers up the baked-in number in the image */
+  padding: 2px 0;
+  min-width: 110px; /* Completely covers underlying image text length */
+  display: inline-block;
+  text-align: center;
+  border-radius: 4px;
+  letter-spacing: -0.2px;
+}
+
+.header-left-overlay-group {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 4px;
+}
+
+.clock-overlay, .bell-overlay {
+  width: 32px;
+  height: 32px;
+  position: static;
+}
+
+/* Balance Section */
+.middle-balance-section {
+  width: 100%;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: flex-start;
+  padding-right: 24px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  height: 47px;
+  position: relative;
+}
+
+.balance-amount {
+  position: absolute;
+  right: 24px;
+  top: 9px;
+  font-size: 38px;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+
+/* Action Button Slices - Spaced exactly like screenshot with responsive max-width */
+.action-buttons-section {
+  position: absolute;
+  top: 45px; /* exactly scaled from the bottom split point */
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  height: 76px;
+}
+
+.action-item-btn {
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  width: 76px;
+  height: 76px;
+  transition: transform 0.2s ease;
+}
+
+.action-item-btn img {
+  display: none !important;
+}
+
+.action-item-btn:active {
+  transform: scale(0.94);
+}
+
+/* Page Indicator Dots Image Container */
+.page-indicator-container {
+  display: none !important;
+}
+
+.page-indicator-img {
+  display: none !important;
+}
+
+/* Tab controls - Right Aligned layout matching screenshot 100% */
+.positions-tabs-section {
+  position: absolute;
+  top: 180px; /* exactly scaled from the bottom split point */
+  left: 20px;
+  right: 20px;
+  height: 44px;
+}
+
+.tabs-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 44px;
+  border-bottom: none;
+}
+
+.tab-btn {
+  font-size: 15px;
+  font-weight: 500;
+  color: transparent; /* Make text transparent since it is baked in */
+  padding-bottom: 8px;
+  position: relative;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  width: 60px;
+  height: 100%;
+}
+
+.tab-btn.active {
+  color: transparent;
+}
+
+.tab-btn.active::after {
+  display: none !important;
+}
+
+/* Empty State Area */
+.empty-state-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.empty-state-title {
+  display: none !important;
+}
+
+.empty-state-desc {
+  display: none !important;
+}
+
+.btn-open-position {
+  position: absolute;
+  top: 308px; /* exactly scaled from the bottom split point */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 36px;
+  font-size: 15px;
+  font-weight: 500;
+  color: transparent;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px; /* Matches 48px height images + safe padding */
+  background-color: #FFFFFF;
+  border-top: 1px solid #ECECEC;
+  display: none; /* Hidden by default, shown dynamically via JS on other views */
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 8px;
+  z-index: 30;
+}
+
+/* Transparent Overlay for baked-in bottom nav in dashboard */
+.bottom-nav-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  display: flex;
+  background: transparent;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.bottom-nav-overlay-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  justify-content: center;
+}
+
+.nav-item img {
+  height: 40px; /* 120px / 3 = 40px */
+  max-width: 100%;
+  width: auto;
+  display: block;
+  transition: filter 0.2s ease;
+  object-fit: contain;
+}
+
+/* Inactive filter to make the accounts active-blue image look gray */
+.nav-item.inactive-accounts img {
+  filter: grayscale(1) brightness(1.15) contrast(0.85);
+}
+
+/* Active filter to convert gray inactive images to blue (#3156FF) */
+.nav-item.active-blue img {
+  filter: invert(27%) sepia(85%) saturate(3000deg) hue-rotate(224deg);
+}
+
+/* ==========================================================================
+   4. PIN CODE SCREEN STYLING (Replica of Image 2)
+   ========================================================================== */
+.pin-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('واجهة تسجيل الدخول.jpg');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  z-index: 20;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  box-sizing: border-box;
+}
+
+.pin-screen.hidden {
+  transform: scale(1.05);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pin-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 16px;
+  opacity: 0;
+}
+
+.pin-chat-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  background: transparent;
+  border: none;
+}
+
+.pin-prompt-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  text-align: center;
+  opacity: 0;
+}
+
+.pin-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: transparent;
+  margin-bottom: 8px;
+}
+
+.pin-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: transparent;
+}
+
+/* PIN Indicator Dots */
+.pin-dots-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px; /* slightly wider gap to match the background image dots */
+  margin: 32px auto;
+  direction: ltr;
+  background: transparent;
+  border: none;
+}
+
+.pin-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: transparent; /* transparent so the background empty dot shows through */
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.pin-dot.filled {
+  background-color: #3156FF;
+  transform: scale(1.1);
+}
+
+/* Numeric Keypad */
+.pin-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 16px;
+  max-width: 280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.keypad-btn {
+  height: 68px;
+  border-radius: 34px;
+  background-color: transparent !important;
+  color: transparent !important; /* hide text since numbers are baked into the background image */
+  font-size: 28px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.keypad-btn:active {
+  background-color: transparent !important;
+}
+
+.keypad-btn svg {
+  opacity: 0 !important; /* hide SVG icon inside bio and delete buttons */
+}
+
+.keypad-btn.bio-btn {
+  color: transparent !important;
+}
+
+.keypad-btn.delete-btn {
+  color: transparent !important;
+}
+
+.pin-footer {
+  margin-top: auto;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.pin-forgot-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: transparent !important;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   5. FACE ID OVERLAY COMPONENT (Replica of Image 2 & 3)
+   ========================================================================== */
+.screen-blur-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 40;
+  transition: opacity 0.3s ease;
+}
+
+.screen-blur-layer.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.face-id-overlay-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 220px;
+  height: 220px;
+  border-radius: 36px;
+  background-color: rgba(228, 229, 233, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 1;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.face-id-overlay-box.dismiss-animation {
+  transition: opacity 250ms ease, transform 250ms ease;
+  opacity: 0 !important;
+  transform: translate(-50%, -50%) scale(0.92) !important;
+}
+
+.face-id-icons-wrapper {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  margin-bottom: 12px;
+}
+
+.face-id-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 84px;
+  height: 84px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+.face-id-scan-svg {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+.face-id-success-svg {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+.face-id-overlay-box.success-active .face-id-scan-svg {
+  opacity: 0 !important;
+  transform: scale(0.8) !important;
+}
+
+.face-id-overlay-box.success-active .face-id-success-svg {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.face-id-text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: -0.2px;
+}
+
+.demo-reset-btn {
+  position: absolute;
+  bottom: 85px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background-color: #3156FF;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(49, 86, 255, 0.25);
+  z-index: 100;
+}
+
+.demo-reset-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.demo-reset-btn:active {
+  transform: scale(0.9);
+}
+
+/* ==========================================================================
+   6. TRADING CHART SCREEN STYLING (Trade/تداول tab view)
+   ========================================================================== */
+.trade-chart-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  z-index: 15;
+  transition: transform 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94), opacity 0.3s ease;
+}
+
+.trade-chart-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+}
+
+.chart-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ECECEC;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.chart-back-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+}
+
+.chart-symbol-info {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.chart-symbol-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.chart-symbol-desc {
+  font-size: 11px;
+  color: #9B9B9B;
+  display: block;
+  margin-top: 1px;
+}
+
+.chart-price-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.chart-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.chart-live-price {
+  font-size: 30px;
+  font-weight: 700;
+  color: #000000;
+  font-family: monospace;
+  transition: color 0.15s ease;
+}
+
+.chart-price-change.positive {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4CAF50;
+}
+
+.chart-price-change.negative {
+  font-size: 13px;
+  font-weight: 600;
+  color: #E53935;
+}
+
+.chart-spread-info {
+  font-size: 11px;
+  color: #9B9B9B;
+  margin-top: 2px;
+}
+
+.timeframe-selector {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+}
+
+.tf-btn {
+  flex: 1;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #F1F1F3;
+  color: #9B9B9B;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tf-btn.active {
+  background-color: #3156FF;
+  color: #FFFFFF;
+}
+
+.chart-container {
+  flex-grow: 1;
+  background-color: #FFFFFF;
+  border: 1px solid #F1F1F3;
+  border-radius: 16px;
+  padding: 16px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 18px;
+  min-height: 180px;
+}
+
+.trading-chart-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chart-line-path,
+.chart-area-path {
+  transition: d 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.chart-tracker-dot {
+  transition: cx 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), cy 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.order-action-panel {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 96px;
+  flex-shrink: 0;
+}
+
+.order-btn {
+  flex: 1;
+  height: 48px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.order-btn.sell {
+  background-color: #E53935;
+}
+
+.order-btn.buy {
+  background-color: #4CAF50;
+}
+
+.order-direction {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+}
+
+.order-price {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+/* ==========================================================================
+   7. SETTINGS SCREEN STYLING (Ideas/الرؤى tab view)
+   ========================================================================== */
+.settings-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  z-index: 15;
+  overflow-y: auto;
+  padding-bottom: 96px; /* Space for nav bar */
+}
+
+.settings-screen.hidden {
+  display: none !important;
+}
+
+.settings-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ECECEC;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.settings-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.settings-group {
+  margin-bottom: 24px;
+}
+
+.settings-group-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #3156FF;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #F1F1F3;
+  padding-bottom: 6px;
+  text-align: right;
+}
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+  text-align: right;
+}
+
+.settings-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8E8E93;
+}
+
+.settings-field input[type="text"],
+.settings-field input[type="number"] {
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #ECECEC;
+  padding: 0 12px;
+  font-size: 15px;
+  outline: none;
+  background-color: #F9F9FB;
+  font-family: inherit;
+  text-align: right;
+  direction: ltr; /* Keeps numbers left-aligned for clear typing */
+}
+
+.settings-field input[type="text"]:focus,
+.settings-field input[type="number"]:focus {
+  border-color: #3156FF;
+  background-color: #FFFFFF;
+}
+
+.settings-field-range {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  direction: ltr;
+}
+
+.settings-field-range input[type="range"] {
+  flex-grow: 1;
+  accent-color: #3156FF;
+}
+
+.settings-range-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+  width: 44px;
+  text-align: left;
+}
+
+.settings-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.settings-btn {
+  flex: 1;
+  height: 48px;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.settings-btn.save {
+  background-color: #3156FF;
+  color: #FFFFFF;
+}
+
+.settings-btn.reset {
+  background-color: #F1F1F3;
+  color: #E53935;
+}
+
+/* Toast message style */
+.toast-msg {
+  position: absolute;
+  bottom: 96px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #FFFFFF;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 200;
+  white-space: nowrap;
+}
+
+.toast-msg.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
