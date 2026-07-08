@@ -39,6 +39,13 @@ body {
   overflow: hidden;
 }
 
+/* Force white background on mobile viewports to prevent black status bars/safe areas */
+@media screen and (max-width: 479px) {
+  body {
+    background-color: #FFFFFF !important;
+  }
+}
+
 /* ==========================================================================
    2. APP LAYOUT CONTAINER (Mobile-first viewport wrapper)
    ========================================================================== */
@@ -107,8 +114,7 @@ button:active, a:active {
 
 .bottom-section-bg {
   width: 100%;
-  height: auto;
-  aspect-ratio: 1166 / 1945;
+  flex: 1; /* Stretch to fill remaining height, pushing bottom nav to the absolute bottom of the screen */
   background-image: url('السفلية.jpg');
   background-size: 100% 100%;
   background-position: center;

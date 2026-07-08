@@ -27,7 +27,7 @@ const DEFAULT_SETTINGS = {
 
 let appSettings = {};
 
-const CURRENT_VERSION = "3.2";
+const CURRENT_VERSION = "3.3";
 
 // Load settings from localStorage or fallback to defaults
 function loadAppSettings() {
